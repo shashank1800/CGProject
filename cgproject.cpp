@@ -13,6 +13,7 @@ float e2 = 208;
 int l = 1;
 float p[5][2] = { {380,320},{380,330},{380,340},{380,350}, {380,360} };//bubble
 int r = 5, r2 = 5, d = 2, c = 0;
+
 void reshape(int w, int h)
 {
 	glViewport(-100, -100, w, h);
@@ -147,8 +148,22 @@ void tank()
 		glVertex2f(400, 280);
 	}
 	glEnd();
-	
-	
+	glShadeModel(GL_SMOOTH);
+	glColor3f(1, 1, 1);
+	glBegin(GL_LINES);
+	glVertex2f(385, 300);
+	glVertex2f(400, 300);
+	glVertex2f(385, 295);
+	glVertex2f(400, 295);
+	glVertex2f(385, 290);
+	glVertex2f(400, 290);
+	glEnd();
+
+	/*glColor3f(1, 0, 1);
+	glBegin(GL_LINE_LOOP);
+	for (int j = 200; j <= 400; j += 4)
+		glVertex2f(j, (0.5*sin(j)));
+	glEnd();*/
 }
 
 
@@ -188,6 +203,7 @@ float i;
 
 void fish1()
 {
+
 	glColor3f(1, 0.8, 0);
 	glBegin(GL_POLYGON);
 	glVertex2f(f[0][0] + r, f[0][1]);
@@ -309,6 +325,91 @@ void plant()
 	glEnd();
 }
 
+void waves() {
+
+	glPointSize(3);
+	glColor3f(0, 1, 1);
+	glBegin(GL_LINE_STRIP);
+	for (int i = 201; i < 399; i += 1)
+	{
+
+		float x = (float)i;
+		float y = 5 * sin(x*0.1);
+		glVertex2f(x, y + 373);
+	}
+	glEnd(); glBegin(GL_LINE_STRIP);
+	for (int i = 201; i < 399; i += 1)
+	{
+
+		float x = (float)i;
+		float y = 5 * sin(x*0.1);
+		glVertex2f(x, y + 372);
+	}
+	glEnd();
+	glBegin(GL_LINE_STRIP);
+	for (int i = 201; i < 399; i += 1)
+	{
+
+		float x = (float)i;
+		float y = 5 * sin(x*0.1);
+		glVertex2f(x, y + 371);
+	}
+	glEnd();
+	glBegin(GL_LINE_STRIP);
+	for (int i = 201; i < 399; i += 1)
+	{
+
+		float x = (float)i;
+		float y = 5 * sin(x*0.1);
+		glVertex2f(x, y + 370);
+	}
+	glEnd();
+	glBegin(GL_LINE_STRIP);
+	for (int i = 201; i < 399; i += 1)
+	{
+
+		float x = (float)i;
+		float y = 5 * sin(x*0.1);
+		glVertex2f(x, y + 369);
+	}
+	glEnd();
+	glBegin(GL_LINE_STRIP);
+	for (int i = 201; i < 399; i += 1)
+	{
+
+		float x = (float)i;
+		float y = 5 * sin(x*0.1);
+		glVertex2f(x, y + 368);
+	}
+	glEnd();
+	glBegin(GL_LINE_STRIP);
+	for (int i = 201; i < 399; i += 1)
+	{
+
+		float x = (float)i;
+		float y = 5 * sin(x*0.1);
+		glVertex2f(x, y + 367);
+	}
+	glEnd();
+	glBegin(GL_LINE_STRIP);
+	for (int i = 201; i < 399; i += 1)
+	{
+
+		float x = (float)i;
+		float y = 5 * sin(x*0.1);
+		glVertex2f(x, y + 366);
+	}
+	glEnd(); glBegin(GL_LINE_STRIP);
+	for (int i = 201; i < 399; i += 1)
+	{
+
+		float x = (float)i;
+		float y = 5 * sin(x*0.1);
+		glVertex2f(x, y + 365);
+	}
+	glEnd();
+}
+
 void display()
 {
 	glClearColor(1, 1, 1, 0);
@@ -320,6 +421,8 @@ void display()
 	fish1();
 	bubble();
 	fish2();
+
+	waves();
 
 	glutSwapBuffers();
 	glFlush();
@@ -334,7 +437,8 @@ int main(int argc, char *argv[])
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutMouseFunc(mouse);
-	glutIdleFunc(idle);
+	//glutIdleFunc(idle);
 	glutMainLoop();
+
 	return 0;
 }

@@ -1,4 +1,4 @@
-#include "pch.h"
+
 #include <iostream>
 #include <GL/glut.h>
 
@@ -12,7 +12,7 @@ float m2[2][2] = { {200,260} ,{210,260} };
 float e2 = 208;
 int l = 1;
 float p[5][2] = { {380,320},{380,330},{380,340},{380,350}, {380,360} };//bubble
-int r = 5,r2=5,d=2,c=0;
+int r = 5, r2 = 5, d = 2, c = 0;
 void reshape(int w, int h)
 {
 	glViewport(-100, -100, w, h);
@@ -22,17 +22,24 @@ void reshape(int w, int h)
 }
 
 void idle() {
-	if (r<-100)
+	if (r < -100)
 		r = 50;
+
 	if (r2 < 2)
 		r2 = 150;
 	if (c > 4)
 		c = 0;
 	if (d > 4)
 		d = 0;
-		glutPostRedisplay();
+	glutPostRedisplay();
 }
-
+void mouse(int button, int status, int x, int y)
+{
+	if (button == GLUT_RIGHT_BUTTON && status == GLUT_DOWN)
+		glutIdleFunc(idle);
+	if (button == GLUT_LEFT_BUTTON && status == GLUT_DOWN)
+		glutIdleFunc(NULL);
+}
 
 void tank()
 {
@@ -48,7 +55,7 @@ void tank()
 	glEnd();
 
 	glColor3f(0, 1, 1);
-	glBegin(GL_POLYGON); 
+	glBegin(GL_POLYGON);
 	{
 		glVertex2f(200, 370);
 		glVertex2f(200, 200);
@@ -57,10 +64,10 @@ void tank()
 	}
 	glEnd();
 
-	/*tank*/
+	//tank
 	glColor3f(0, 0, 1);
 	glLineWidth(3);
-	glBegin(GL_LINE_LOOP); 
+	glBegin(GL_LINE_LOOP);
 	{
 		glVertex2f(200, 400);
 		glVertex2f(200, 200);
@@ -70,7 +77,7 @@ void tank()
 	glEnd();
 
 	glColor3f(0, 0, 0.8);
-	glBegin(GL_POLYGON); 
+	glBegin(GL_POLYGON);
 	{
 		glVertex2f(350, 480);
 		glVertex2f(350, 450);
@@ -78,12 +85,12 @@ void tank()
 		glVertex2f(400, 480);
 	}
 	glEnd();
-	
-	
+
+
 
 	//water filter
 
-	glColor3f(0.812,0.847,0.862);
+	glColor3f(0.812, 0.847, 0.862);
 	glBegin(GL_POLYGON);
 	{
 		glVertex2f(400, 335);
@@ -108,17 +115,17 @@ void tank()
 	{
 		glVertex2f(400, 320);
 		glVertex2f(390, 320);
-		glVertex2f(400,312);
+		glVertex2f(400, 312);
 	}
 	glEnd();
 
 	glColor3f(0.258, 0.258, 0.258);
 	glBegin(GL_POLYGON);
 	{
-		glVertex2f(400,315);
+		glVertex2f(400, 315);
 		glVertex2f(385, 315);
 		glVertex2f(385, 310);
-		glVertex2f(400,310);
+		glVertex2f(400, 310);
 	}
 	glEnd();
 
@@ -134,14 +141,14 @@ void tank()
 	glColor3f(0.258, 0.258, 0.258);
 	glBegin(GL_POLYGON);
 	{
-		glVertex2f(400,300);
+		glVertex2f(400, 300);
 		glVertex2f(385, 300);
 		glVertex2f(385, 280);
 		glVertex2f(400, 280);
 	}
 	glEnd();
-
-
+	
+	
 }
 
 
@@ -169,7 +176,7 @@ void eli()
 		glVertex2f(260 + 12 * cos(p), 200 + 5 + 6 * sin(p));
 	glEnd();
 
-	glColor3f(0.4, 0.8, .80);
+	glColor3f(0.27, 0.35, 0.39);
 	glBegin(GL_POLYGON);
 	for (float r = 0; r < 180; r++)
 		glVertex2f(385 + 12 * cos(r), 200 + 5 + 6 * sin(r));
@@ -181,9 +188,9 @@ float i;
 
 void fish1()
 {
-	glColor3f(1,0.65,0.147);
+	glColor3f(1, 0.8, 0);
 	glBegin(GL_POLYGON);
-	glVertex2f(f[0][0]+r,f[0][1]);
+	glVertex2f(f[0][0] + r, f[0][1]);
 	glVertex2f(f[1][0] + r, f[1][1]);
 	glVertex2f(f[2][0] + r, f[2][1]);
 	glVertex2f(f[3][0] + r, f[3][1]);
@@ -196,7 +203,7 @@ void fish1()
 
 	glColor3f(1, 1, 0);
 	glBegin(GL_POLYGON);
-	glVertex2f(t[0][0]+r,t[0][1]);
+	glVertex2f(t[0][0] + r, t[0][1]);
 	glVertex2f(t[1][0] + r, t[1][1]);
 	glVertex2f(t[2][0] + r, t[2][1]);
 	glVertex2f(t[3][0] + r, t[3][1]);
@@ -204,13 +211,13 @@ void fish1()
 
 	glColor3f(1, 1, 1);
 	glBegin(GL_LINES);
-	glVertex2f(m[0][0]+r,m[0][1]);
+	glVertex2f(m[0][0] + r, m[0][1]);
 	glVertex2f(m[1][0] + r, m[1][1]);
 	glEnd();
 	glColor3f(1, 1, 0);
 	glBegin(GL_POLYGON);
 	for (i = 0; i < 2 * 3.14; i += 0.5)
-		glVertex2f(e +r+ 2 * cos(i), 328 + 2 * sin(i));
+		glVertex2f(e + r + 2 * cos(i), 328 + 2 * sin(i));
 	glEnd();
 	Sleep(1);
 	r -= 8;
@@ -257,33 +264,6 @@ void fish2()
 
 }
 
-
-
-/*void bubble()
-{
-	glColor3f(1, 1, 1);
-	glBegin(GL_POLYGON);
-	for (i = 0; i < 2 * 3.14; i += 0.5)
-		glVertex2f(p[0][0] + 3 * cos(i), p[0][1] + 3 * sin(i));
-	glEnd();
-	glBegin(GL_POLYGON);
-	for (i = 0; i < 2 * 3.14; i += 0.5)
-		glVertex2f(p[1][0] + 2.5*cos(i), p[1][1] + 2.5*sin(i));
-	glEnd();
-	glBegin(GL_POLYGON);
-	for (i = 0; i < 2 * 3.14; i += 0.5)
-		glVertex2f(p[2][0] + 2 * cos(i), p[2][1] + 2 * sin(i));
-	glEnd();
-	glBegin(GL_POLYGON);
-	for (i = 0; i < 2 * 3.14; i += 0.5)
-		glVertex2f(p[3][0] + 1.5*cos(i), p[3][1] + 1.5*sin(i));
-	glEnd();
-	glBegin(GL_POLYGON);
-	for (i = 0; i < 2 * 3.14; i += 0.5)
-		glVertex2f(p[4][0] + 1 * cos(i), p[4][1] + 1 * sin(i));
-	glEnd();
-
-}*/
 void bubble()
 {
 	glColor3f(1, 1, 1);
@@ -340,7 +320,7 @@ void display()
 	fish1();
 	bubble();
 	fish2();
-	
+
 	glutSwapBuffers();
 	glFlush();
 }
@@ -351,9 +331,9 @@ int main(int argc, char *argv[])
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutCreateWindow("aquarium");
 	glutFullScreen();
-	//fish1();
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
+	glutMouseFunc(mouse);
 	glutIdleFunc(idle);
 	glutMainLoop();
 	return 0;

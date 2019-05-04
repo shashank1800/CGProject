@@ -1,7 +1,5 @@
-
 #include <iostream>
 #include <GL/glut.h>
-
 float f[9][2] = { {300,320},{310,300},{320,290},{330,300},{335,310},{340,320},{330,340},{320,350},{310,340} };
 float t[4][2] = { {340,320},{350,290},{345,320},{350,350} };
 float m[2][2] = { {300,320} ,{310,320} };
@@ -21,11 +19,9 @@ void reshape(int w, int h)
 	glLoadIdentity();
 	gluOrtho2D(0, 500, 0, 500);
 }
-
 void idle() {
 	if (r < -100)
 		r = 50;
-
 	if (r2 < 2)
 		r2 = 150;
 	if (c > 4)
@@ -40,8 +36,8 @@ void mouse(int button, int status, int x, int y)
 		glutIdleFunc(idle);
 	if (button == GLUT_LEFT_BUTTON && status == GLUT_DOWN)
 		glutIdleFunc(NULL);
-}
 
+}
 void tank()
 {
 	glColor3f(0, 0, 1);
@@ -87,10 +83,7 @@ void tank()
 	}
 	glEnd();
 
-
-
 	//water filter
-
 	glColor3f(0.812, 0.847, 0.862);
 	glBegin(GL_POLYGON);
 	{
@@ -158,14 +151,7 @@ void tank()
 	glVertex2f(385, 290);
 	glVertex2f(400, 290);
 	glEnd();
-
-	/*glColor3f(1, 0, 1);
-	glBegin(GL_LINE_LOOP);
-	for (int j = 200; j <= 400; j += 4)
-		glVertex2f(j, (0.5*sin(j)));
-	glEnd();*/
 }
-
 
 float h = 40, k = 5;
 void eli()
@@ -196,14 +182,10 @@ void eli()
 	for (float r = 0; r < 180; r++)
 		glVertex2f(385 + 12 * cos(r), 200 + 5 + 6 * sin(r));
 	glEnd();
-
 }
 float i;
-
-
 void fish1()
 {
-
 	glColor3f(1, 0.8, 0);
 	glBegin(GL_POLYGON);
 	glVertex2f(f[0][0] + r, f[0][1]);
@@ -237,11 +219,7 @@ void fish1()
 	glEnd();
 	Sleep(1);
 	r -= 8;
-
 }
-
-
-
 void fish2()
 {
 	glColor3f(1, 0.8, 0);
@@ -277,9 +255,7 @@ void fish2()
 	glEnd();
 	Sleep(0.5);
 	r2 -= 8;
-
 }
-
 void bubble()
 {
 	glColor3f(1, 1, 1);
@@ -295,11 +271,8 @@ void bubble()
 	d += 1;
 	c += 1;
 }
-
-
 void plant()
 {
-
 	glColor3f(0, 0.8, 0);
 	glBegin(GL_POLYGON);
 	glVertex2f(340 + 10, 200);
@@ -324,7 +297,6 @@ void plant()
 	glVertex2f(380 - 130, 200);
 	glEnd();
 }
-
 void waves() {
 
 	glPointSize(3);
@@ -409,21 +381,17 @@ void waves() {
 	}
 	glEnd();
 }
-
 void display()
 {
 	glClearColor(1, 1, 1, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	tank();
-
 	plant();
 	eli();
 	fish1();
 	bubble();
 	fish2();
-
 	waves();
-
 	glutSwapBuffers();
 	glFlush();
 }
@@ -432,13 +400,13 @@ int main(int argc, char *argv[])
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutInitWindowSize(600, 600);
 	glutCreateWindow("aquarium");
 	glutFullScreen();
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
-	glutMouseFunc(mouse);
 	//glutIdleFunc(idle);
+	glutMouseFunc(mouse);
 	glutMainLoop();
-
 	return 0;
 }

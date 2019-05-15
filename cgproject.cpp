@@ -1,5 +1,6 @@
 #include <iostream>
 #include <GL/glut.h>
+#include "Source.h"
 float f[9][2] = { {300,320},{310,300},{320,290},{330,300},{335,310},{340,320},{330,340},{320,350},{310,340} };
 float t[4][2] = { {340,320},{350,290},{345,320},{350,350} };
 float m[2][2] = { {300,320} ,{310,320} };
@@ -8,7 +9,9 @@ float f2[9][2] = { {200,260},{210,240},{220,230},{230,240},{235,250},{240,260},{
 float t2[4][2] = { {240,260},{250,230},{245,260},{250,290} };
 float m2[2][2] = { {200,260} ,{210,260} };
 float e2 = 208;
-int l = 1;
+int l = 1,o=0;
+int fflag = 0;
+float cc[3] = {1,1,1};
 float p[5][2] = { {380,320},{380,330},{380,340},{380,350}, {380,360} };//bubble
 int r = 5, r2 = 5, d = 2, c = 0;
 
@@ -29,14 +32,6 @@ void idle() {
 	if (d > 4)
 		d = 0;
 	glutPostRedisplay();
-}
-void mouse(int button, int status, int x, int y)
-{
-	if (button == GLUT_RIGHT_BUTTON && status == GLUT_DOWN)
-		glutIdleFunc(idle);
-	if (button == GLUT_LEFT_BUTTON && status == GLUT_DOWN)
-		glutIdleFunc(NULL);
-
 }
 void tank()
 {
@@ -222,7 +217,7 @@ void fish1()
 }
 void fish2()
 {
-	glColor3f(1, 0.8, 0);
+	glColor3f(1,0.8,0);
 	glBegin(GL_POLYGON);
 	glVertex2f(f2[0][0] + r2, f2[0][1]);
 	glVertex2f(f2[1][0] + r2, f2[1][1]);
@@ -235,7 +230,7 @@ void fish2()
 	glVertex2f(f2[8][0] + r2, f2[8][1]);
 	glEnd();
 
-	glColor3f(1, 1, 0);
+	glColor3f(1,1,0);
 	glBegin(GL_POLYGON);
 	glVertex2f(t2[0][0] + r2, t2[0][1]);
 	glVertex2f(t2[1][0] + r2, t2[1][1]);
@@ -243,29 +238,29 @@ void fish2()
 	glVertex2f(t2[3][0] + r2, t2[3][1]);
 	glEnd();
 
-	glColor3f(1, 1, 1);
+	glColor3f(1,1,1);
 	glBegin(GL_LINES);
 	glVertex2f(m2[0][0] + r2, m2[0][1]);
 	glVertex2f(m2[1][0] + r2, m2[1][1]);
 	glEnd();
-	glColor3f(1, 1, 0);
+	glColor3f(1,1,0);
 	glBegin(GL_POLYGON);
 	for (i = 0; i < 2 * 3.14; i += 0.5)
 		glVertex2f(e2 + r2 + 2 * cos(i), 268 + 2 * sin(i));
 	glEnd();
-	Sleep(0.5);
+	Sleep(1);
 	r2 -= 8;
 }
 void bubble()
 {
-	glColor3f(1, 1, 1);
+	glColor3fv(cc);
 	glBegin(GL_POLYGON);
 	for (i = 0; i < 2 * 3.14; i += 0.5)
-		glVertex2f(p[c][0] + 2 * cos(i), p[c][1] + 2 * sin(i));
+		glVertex2f(p[c][0]+o + 2 * cos(i), p[c][1] + 2 * sin(i));
 	glEnd();
 	glBegin(GL_POLYGON);
 	for (i = 0; i < 2 * 3.14; i += 0.5)
-		glVertex2f(p[d][0] + 2 * cos(i), p[d][1] + 2 * sin(i));
+		glVertex2f(p[d][0]+o + 2 * cos(i), p[d][1] + 2 * sin(i));
 	glEnd();
 	Sleep(300);
 	d += 1;
@@ -390,23 +385,46 @@ void display()
 	eli();
 	fish1();
 	bubble();
-	fish2();
+	if(fflag==1)
+		fish2();
 	waves();
 	glutSwapBuffers();
 	glFlush();
 }
-
+void menu(int ch)
+{
+	if (ch == 1)
+	{
+		o = 0;
+		d = 2; c = 0;
+	}
+	if (ch == 2)
+		o = 30;
+	if (ch == 3)
+		fflag = 1;
+	if (ch == 4)
+		fflag = 0;
+	if (ch == 5)
+		exit(0);
+	glutPostRedisplay();
+}
 int main(int argc, char *argv[])
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-	glutInitWindowSize(600, 600);
+	glutInitWindowSize(1000, 1000);
 	glutCreateWindow("aquarium");
 	glutFullScreen();
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
-	//glutIdleFunc(idle);
-	glutMouseFunc(mouse);
+	glutIdleFunc(idle);
+	glutCreateMenu(menu);
+	glutAddMenuEntry("on pump", 1);
+	glutAddMenuEntry("off pump", 2);
+	glutAddMenuEntry("add fish2", 3);
+	glutAddMenuEntry("remove fish2", 4);
+	glutAddMenuEntry("exit", 5);
+	glutAttachMenu(GLUT_LEFT_BUTTON);
 	glutMainLoop();
 	return 0;
 }

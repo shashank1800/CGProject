@@ -419,11 +419,11 @@ int main(int argc, char *argv[])
 	glutReshapeFunc(reshape);
 	glutIdleFunc(idle);
 	glutCreateMenu(menu);
-	glutAddMenuEntry("on pump", 1);
-	glutAddMenuEntry("off pump", 2);
-	glutAddMenuEntry("add fish2", 3);
-	glutAddMenuEntry("remove fish2", 4);
-	glutAddMenuEntry("exit", 5);
+	glutAddMenuEntry("On Pump", 1);
+	glutAddMenuEntry("Off pump", 2);
+	glutAddMenuEntry("add 2nd Fish", 3);
+	glutAddMenuEntry("Remove 2nd Fish", 4);
+	glutAddMenuEntry("Close", 5);
 	glutAttachMenu(GLUT_LEFT_BUTTON);
 	glutMainLoop();
 	return 0;

@@ -420,8 +420,8 @@ int main(int argc, char *argv[])
 	glutIdleFunc(idle);
 	glutCreateMenu(menu);
 	glutAddMenuEntry("On Pump", 1);
-	glutAddMenuEntry("Off pump", 2);
-	glutAddMenuEntry("add 2nd Fish", 3);
+	glutAddMenuEntry("Off Pump", 2);
+	glutAddMenuEntry("Add 2nd Fish", 3);
 	glutAddMenuEntry("Remove 2nd Fish", 4);
 	glutAddMenuEntry("Close", 5);
 	glutAttachMenu(GLUT_LEFT_BUTTON);
